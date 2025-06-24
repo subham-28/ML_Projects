@@ -42,23 +42,21 @@ This project predicts the delivery time for food orders based on various real-wo
 ## 📁 Project Structure
 ```md
 Food_Delivery_Time_Prediction/
-│
-├── app/
+├── api/
 │ ├── main.py # FastAPI entrypoint
 │ ├── templates/
 │ │ └── index.html # HTML frontend with form and JS
-│ └── static/ # (Optional) for custom CSS/JS if separated
-│
 ├── models/
 │ └── stacking_model.pkl # Trained ML model (tracked via Git LFS)
-│
+│ └── preprocessing_pipeline.pkl 
 ├── src/
 │ ├── inference.py # Prediction pipeline
+│ └── data_preparation.py # Data Preprocessing
 │ └── data_clean_utils.py # Cleaning utilities
-│
-├── swiggy.csv # Raw dataset
-├── swiggy_cleaned.csv # Cleaned dataset
-├── Final_Estimator.ipynb # Notebook used for training and evaluation
+├── data/
+│ ├── swiggy.csv # Original Dataset
+├── templates/
+│ ├── index.html # Frontend html+css
 ├── requirements.txt # All dependencies
 ├── .gitattributes # Git LFS configuration
 └── README.md # Project overview
