@@ -30,7 +30,9 @@ This project predicts the delivery time for food orders based on various real-wo
 - 🧠 Machine Learning powered predictions
 - 🧩 Stacking Regressor for enhanced accuracy
 - 🔎 Interactive Web UI with dark/light theme toggle
-- 🔥 Real-time prediction with a custom loading animation
+- 📈 Accurate delivery time predictions
+- 🧪 Input validation with intelligent error handling
+- 📊 MAE under ~3.1 minutes (Cross-validated)
 - 📊 MLflow tracking via DagsHub
 - 🌍 Deployment-ready using FastAPI
 
@@ -104,6 +106,21 @@ pip install -r requirements.txt
 # 4. Start FastAPI app:
 uvicorn app.main:app --reload
 ```
+
+---
+
+## 💻 Technologies Stack
+
+| Layer            | Technology                               |
+|------------------|------------------------------------------|
+| **Backend**  | [FastAPI](https://fastapi.tiangolo.com/) – High-performance API framework |
+| **Modeling** | Scikit-learn, LightGBM, RandomForest, StackingRegressor           |
+| **Preprocessing** | PowerTransformer, ColumnTransformer, Pipelines, OneHotEncoder, OrdinalEncoder |
+| **Experiment Tracking** | [MLflow](https://mlflow.org/) with [DagsHub](https://dagshub.com/) integration |
+| **Data Visualization** | Matplotlib, Seaborn, Plotly, Missingno (for missing value visualizations)      |
+| **Data Storage** | Pandas, CSV (for static data)|
+| **Deployment** | Uvicorn (Local Dev)     |
+| **Version Control** | Git, GitHub, Git LFS (for large model files)               |
 
 ---
 
