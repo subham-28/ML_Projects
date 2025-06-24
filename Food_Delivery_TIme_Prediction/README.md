@@ -20,6 +20,7 @@ This project predicts the delivery time for food orders based on various real-wo
 - [📊 Model Overview](#-model-overview)
 - [✅ Performance Metrics](#-performance-metrics)
 - [🛠️ Installation](#️-installation)
+- [💻 Tech Stack](#️-tech-stack)
 - [🤝 Contributing](#-contributing)
 - [📜 License](#-license)
 
