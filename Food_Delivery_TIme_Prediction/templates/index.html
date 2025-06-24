@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delivery Time Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #000000;
+      --bg-light: #f2f2f2;
+      --text-dark: #ffffff;
+      --text-light: #222222;
+      --accent: #4f46e5;
+      --input-bg-dark: #2c2c2c;
+      --input-bg-light: #ffffff;
+    }
+
+    html[data-theme='dark'] {
+      --bg: var(--bg-dark);
+      --text: var(--text-dark);
+      --input-bg: var(--input-bg-dark);
+    }
+
+    html[data-theme='light'] {
+      --bg: var(--bg-light);
+      --text: var(--text-light);
+      --input-bg: var(--input-bg-light);
+    }
+
+    * {
+      transition: all 0.4s ease;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      color: var(--accent);
+      animation: fadeIn 1.2s ease;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    form {
+      background-color: var(--bg);
+      border: 1px solid #444;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 650px;
+      box-shadow: 0 4px 20px rgba(98, 68, 197, 0.25);
+      animation: slideIn 1s ease;
+    }
+
+    form:hover {
+        box-shadow: 
+            0 0 60px rgba(77, 44, 186, 0.8), 
+            0 0 100px rgba(79, 46, 189, 0.6);
+        transform: scale(1.015);
+    }
+
+
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      background-color: var(--input-bg);
+      color: var(--text);
+      border: 1px solid #888;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+      outline: none;
+      box-shadow: 0 0 5px var(--accent);
+    }
+
+    button[type="submit"] {
+      margin-top: 1.5rem;
+      background-color: var(--accent);
+      border: none;
+      padding: 0.75rem;
+      width: 100%;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #6757e1;
+    }
+
+    #result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      color: #44b9ad;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .dot-loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dot-loader div {
+      width: 12px;
+      height: 12px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      animation: bounce 0.6s infinite alternate;
+    }
+
+    .dot-loader div:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .dot-loader div:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes bounce {
+      to {
+        transform: translateY(-10px);
+        background-color: #44b9ad;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+
+  <h1>✨ Food Delivery Time Predictor</h1>
+
+  <form id="predictForm">
+    <!-- form fields same as before -->
+    <!-- keep all the labels and inputs exactly as in your code above -->
+    <!-- ... [REUSE your existing input fields from the form] -->
+
+    <label>Delivery Person ID:
+      <input type="text" name="delivery_person_id" required>
+    </label>
+    <label>Age:
+      <input type="text" name="delivery_person_age" required>
+    </label>
+    <label>Ratings:
+      <input type="text" name="delivery_person_ratings" required>
+    </label>
+    <label>Restaurant Latitude:
+      <input type="number" name="restaurant_latitude" step="0.000000000000001" required>
+    </label>
+    <label>Restaurant Longitude:
+      <input type="number" name="restaurant_longitude" step="0.00000000000001" required>
+    </label>
+    <label>Delivery Latitude:
+      <input type="number" name="delivery_location_latitude" step="0.000000000001" required>
+    </label>
+    <label>Delivery Longitude:
+      <input type="number" name="delivery_location_longitude" step="0.00000000001" required>
+    </label>
+    <label>Order Date:
+      <input type="date" name="order_date" required>
+    </label>
+    <label>Time Ordered (HH:MM:SS):
+        <input type="text" name="time_orderd" pattern="^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$" placeholder="14:35:20" required>
+    </label>
+
+    <label>Time Picked (HH:MM:SS):
+        <input type="text" name="time_order_picked" pattern="^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$" placeholder="14:45:30" required>
+    </label>
+    <label>Weather:
+      <select name="weatherconditions" required>
+        <option value="" disabled selected>Select Weather</option>
+        <option value="Sunny">Sunny</option>
+        <option value="Stormy">Stormy</option>
+        <option value="Windy">Windy</option>
+        <option value="Cloudy">Cloudy</option>
+      </select>
+    </label>
+    <label>Traffic Density:
+      <select name="road_traffic_density" required>
+        <option value="" disabled selected>Select Traffic</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+        <option value="Jam">Jam</option>
+      </select>
+    </label>
+    <label>Vehicle Condition:
+      <input type="number" name="vehicle_condition" min="0" max="3" placeholder="0-Excellent | 1-Good | 2-Average | 3-Bad" required>
+    </label>
+    <label>Type of Order:
+      <select name="type_of_order" required>
+        <option value="" disabled selected>Select Order</option>
+        <option value="Snack">Snack</option>
+        <option value="Meal">Meal</option>
+        <option value="Drinks">Drinks</option>
+        <option value="Buffet">Buffet</option>
+      </select>
+    </label>
+    <label>Type of Vehicle:
+      <select name="type_of_vehicle" required>
+        <option value="" disabled selected>Select Vehicle</option>
+        <option value="motorcycle">Motorcycle</option>
+        <option value="bike">Bike</option>
+        <option value="scooter">Scooter</option>
+        <option value="electric scooter">Electric_Scooter</option>
+        <option value="car">Car</option>
+      </select>
+    </label>
+    <label>Multiple Deliveries:
+      <input type="text" name="multiple_deliveries">
+    </label>
+    <label>Festival:
+      <select name="festival" required>
+        <option value="" disabled selected>Select Festival</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </label>
+    <label>City:
+      <select name="city" required>
+        <option value="" disabled selected>Select City</option>
+        <option value="urban">Urban</option>
+        <option value="semi-urban">Semi-Urban</option>
+        <option value="metropolitan">Metropolitan</option>
+      </select>
+    </label>
+
+    <button type="submit">Predict Delivery Time</button>
+
+<!-- 🔄 Fancy Loader -->
+<div id="loader" style="display: none; margin-top: 1rem;">
+  <div class="dot-loader">
+    <div></div><div></div><div></div>
+  </div>
+</div>
+<div id="result"></div>
+  </form>
+
+  <script>
+  function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", newTheme);
+  }
+
+  document.getElementById("predictForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const jsonData = {};
+    formData.forEach((value, key) => {
+      jsonData[key] = value;
+    });
+
+    const resultDiv = document.getElementById("result");
+    const loader = document.getElementById("loader"); // ✅ Get loader div
+
+    resultDiv.innerHTML = "";
+    loader.style.display = "block"; // ✅ Show loader
+
+    try {
+      const res = await fetch("/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(jsonData)
+      });
+
+      const data = await res.json();
+      loader.style.display = "none"; // ✅ Hide loader
+
+      if (res.ok) {
+        resultDiv.innerHTML = `Predicted Delivery Time: <strong>${data.predicted_delivery_time}</strong> minutes`;
+      } else {
+        resultDiv.innerHTML = `Error: <strong>${data.detail}</strong>`;
+      }
+    } catch (error) {
+      loader.style.display = "none"; // ✅ Hide loader on error
+      resultDiv.innerHTML = `Unexpected Error: <strong>${error.message}</strong>`;
+    }
+  });
+</script>
+</body>
+</html>
