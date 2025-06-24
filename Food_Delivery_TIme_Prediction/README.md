@@ -38,9 +38,9 @@ This project predicts the delivery time for food orders based on various real-wo
 - 🌍 Deployment-ready using FastAPI
 
 ---
-```md
-## 📁 Project Structure
 
+## 📁 Project Structure
+```md
 Food_Delivery_Time_Prediction/
 │
 ├── app/
