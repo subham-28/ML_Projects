@@ -38,7 +38,7 @@ This project predicts the delivery time for food orders based on various real-wo
 - 🌍 Deployment-ready using FastAPI
 
 ---
-
+```md
 ## 📁 Project Structure
 
 Food_Delivery_Time_Prediction/
@@ -62,6 +62,7 @@ Food_Delivery_Time_Prediction/
 ├── requirements.txt # All dependencies
 ├── .gitattributes # Git LFS configuration
 └── README.md # Project overview
+```
 
 
 ---
