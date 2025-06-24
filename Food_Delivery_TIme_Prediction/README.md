@@ -44,8 +44,6 @@ This project predicts the delivery time for food orders based on various real-wo
 Food_Delivery_Time_Prediction/
 ├── api/
 │ ├── main.py # FastAPI entrypoint
-│ ├── templates/
-│ │ └── index.html # HTML frontend with form and JS
 ├── models/
 │ └── stacking_model.pkl # Trained ML model (tracked via Git LFS)
 │ └── preprocessing_pipeline.pkl 
