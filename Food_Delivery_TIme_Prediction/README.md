@@ -1,6 +1,3 @@
-from pathlib import Path
-
-readme_content = """
 # 🍔 Food Delivery Time Prediction ⏱️
 
 This project predicts the delivery time for food orders based on various real-world conditions like traffic, weather, and order details. It uses a trained **Stacking Regressor** (Random Forest + LGBM + Linear Regression) and is deployed via **FastAPI** with a responsive UI.
